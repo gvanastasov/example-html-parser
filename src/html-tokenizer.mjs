@@ -31,21 +31,42 @@ const TOKEN_TYPES = {
       // Handle tags (start or end)
       if (char === '<') {
         const nextChar = this.html[this.position + 1];
+
+        // Handle comment or doctype
+        if (nextChar === '!') {
+          if (this.html.slice(this.position + 2, this.position + 2 + 7) === 'DOCTYPE') {
+            return this.consumeDoctype();
+          }
+          if (this.html.slice(this.position + 2, this.position + 2 + 2) === '--') {
+            return this.consumeComment();
+          }
+        }
+
         if (nextChar === '/') {
           // Closing tag
           return this.consumeEndTag();
         }
+        
         // Opening tag or doctype
         return this.consumeStartTag();
       }
   
-      // Handle comments
-      if (char === '!' && this.html[this.position + 1] === '-' && this.html[this.position + 2] === '-') {
-        return this.consumeComment();
-      }
-  
       // Handle text nodes
       return this.consumeText();
+    }
+
+    // Consume a doctype declaration
+    consumeDoctype() {
+      this.position += 9; // Skip the "<!DOCTYPE"
+      let doctype = '';
+      while (this.position < this.html.length && this.html[this.position] !== '>') {
+        if (/[a-zA-Z]/.test(this.html[this.position])) {
+          doctype += this.html[this.position];
+        }
+        this.position++;
+      }
+      this.position++; // Skip the closing ">"
+      return { type: TOKEN_TYPES.DOCTYPE, value: doctype };
     }
   
     // Consume text until next tag or special character
@@ -88,9 +109,15 @@ const TOKEN_TYPES = {
         }
         attributes.push(this.consumeAttribute());
       }
-  
+      
+      const openTag = { type: TOKEN_TYPES.TAG_OPEN, value: tagName, attributes };
+      
+      if (this.html.slice(this.position - 1, this.position + 1) === '/>') {
+        this.position++; // Skip the ">"
+        return [openTag, { type: TOKEN_TYPES.TAG_CLOSE, value: tagName }];
+      }
       this.position++; // Skip the ">"
-      return { type: TOKEN_TYPES.TAG_OPEN, value: tagName, attributes };
+      return openTag;
     }
   
     // Consume an attribute in a tag
@@ -131,16 +158,15 @@ const TOKEN_TYPES = {
     tokenize() {
       let token;
       while ((token = this.getNextToken())) {
-        this.tokens.push(token);
+        if (token instanceof Array) {
+          token.forEach(t => this.tokens.push(t));
+        } else {
+          this.tokens.push(token);
+        }
       }
       return this.tokens;
     }
   }
   
-//   const html = `<div class="container"><h1>Hello, world!</h1><!-- This is a comment --></div>`;
-//   const tokenizer = new HTMLTokenizer(html);
-//   const tokens = tokenizer.tokenize();
-//   console.log(tokens);
-
 export { HTMLTokenizer, TOKEN_TYPES };
   
