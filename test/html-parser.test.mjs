@@ -30,7 +30,9 @@ describe('HTML5 Parser', function () {
         .find(child => child.tagName === 'body')
             .children
                 .find(child => child.tagName === 'header');
-      expect(header).to.exist;
-      expect(header.children[0].value).to.include('Welcome to My Dummy Website');
+      const h1 = header.children.find(child => child.tagName === 'h1');
+
+      expect(h1).to.exist;
+      expect(h1.children[0].value).to.include('Welcome to My Dummy Website');
     });
   });
