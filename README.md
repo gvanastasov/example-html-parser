@@ -1,2 +1,3 @@
 # example-html-parser
- Just a dummy naive html parsing example
+
+Just a dummy naive html parsing example

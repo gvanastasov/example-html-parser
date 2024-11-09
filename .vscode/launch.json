@@ -1,23 +1,21 @@
 {
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "args": [
-                "--require",
-                "@babel/register",
-                "--timeout",
-                "999999",
-                "--colors",
-                "${workspaceFolder}/test/**/*.test.mjs"
-            ],
-            "internalConsoleOptions": "openOnSessionStart",
-            "name": "Mocha Tests",
-            "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
-            "request": "launch",
-            "skipFiles": [
-                "<node_internals>/**"
-            ],
-            "type": "node"
-        },
-    ]
-  }
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "args": [
+        "--require",
+        "@babel/register",
+        "--timeout",
+        "999999",
+        "--colors",
+        "${workspaceFolder}/test/**/*.test.mjs"
+      ],
+      "internalConsoleOptions": "openOnSessionStart",
+      "name": "Mocha Tests",
+      "program": "${workspaceRoot}/node_modules/mocha/bin/_mocha",
+      "request": "launch",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "node"
+    }
+  ]
+}
