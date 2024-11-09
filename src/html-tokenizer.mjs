@@ -34,10 +34,8 @@ class HTMLTokenizer {
 
       // Handle comment or doctype
       if (nextChar === '!') {
-        if (
-          this.html.slice(this.position + 2, this.position + 2 + 7) ===
-          'DOCTYPE'
-        ) {
+        var chunk = this.html.slice(this.position + 2, this.position + 2 + 7);
+        if (chunk === 'DOCTYPE' || chunk === 'doctype') {
           return this.consumeDoctype();
         }
         if (

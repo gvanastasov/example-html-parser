@@ -15,7 +15,7 @@
     "prettier": "^3.3.3"
   },
   "scripts": {
-    "test": "mocha --require @babel/register test/**/*.test.js",
+    "test": "mocha --require @babel/register test/**/*.test.mjs",
     "format": "prettier --write ."
   },
   "keywords": [],
