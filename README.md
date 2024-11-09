@@ -1,6 +1,6 @@
 # Example HTML Parser (including Tokenizer & Serializer)
 
-This project demonstrates the basics of building an HTML tokenizer, parser, and serializer. I would advice not to use this in production in any form, as its far from optimized.
+This project demonstrates the basics of building an HTML tokenizer, parser, and serializer. I would advice not to use this in production in any form, as its far from optimized (neither forgiving, nor handling errors).
 
 This project is a simple HTML parser written in JavaScript, which includes three main components:
 1. **Tokenizer**: Breaks down HTML into individual tokens.
