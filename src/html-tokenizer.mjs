@@ -142,5 +142,5 @@ const TOKEN_TYPES = {
 //   const tokens = tokenizer.tokenize();
 //   console.log(tokens);
 
-export default HTMLTokenizer;
+export { HTMLTokenizer, TOKEN_TYPES };
   

@@ -1,3 +1,5 @@
+import { TOKEN_TYPES } from './html-tokenizer.mjs';
+
 class HTMLParser {
     constructor(tokens) {
       this.tokens = tokens;

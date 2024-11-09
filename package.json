@@ -1,6 +1,22 @@
 {
+  "name": "example-html-parser",
+  "version": "1.0.0",
+  "description": "Just a dummy naive html parsing example",
+  "main": "index.js",
+  "type": "module",
+  "directories": {
+    "test": "test"
+  },
   "devDependencies": {
+    "@babel/preset-env": "^7.26.0",
+    "@babel/register": "^7.25.9",
     "chai": "^5.1.2",
     "mocha": "^10.8.2"
-  }
+  },
+  "scripts": {
+    "test": "mocha --require @babel/register test/**/*.test.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
 }
