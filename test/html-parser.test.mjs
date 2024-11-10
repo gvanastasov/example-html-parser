@@ -12,26 +12,36 @@ describe('HTML5 Parser', function () {
   });
 
   it('should parse HTML into a DOM tree', function () {
-    const tokenizer = new HTMLTokenizer(dummyHTML);
-    const tokens = tokenizer.tokenize();
-    const parser = new HTMLParser(tokens);
+    const parser = new HTMLParser(dummyHTML);
     const domTree = parser.parse();
-    expect(domTree).to.be.an('object').that.has.property('tagName');
-    expect(domTree.tagName).to.equal('html');
+    expect(domTree).to.be.an('object').that.has.property('name');
+    expect(domTree.name).to.equal('root');
+    expect(domTree.children).to.be.an('array').that.is.not.empty;
+    expect(domTree.children[0].name).to.equal('html');
   });
 
   it('should handle basic HTML structure correctly', function () {
-    const tokenizer = new HTMLTokenizer(dummyHTML);
-    const tokens = tokenizer.tokenize();
-    const parser = new HTMLParser(tokens);
+    const parser = new HTMLParser(dummyHTML);
     const domTree = parser.parse();
 
-    const header = domTree.children
-      .find((child) => child.tagName === 'body')
-      .children.find((child) => child.tagName === 'header');
-    const h1 = header.children.find((child) => child.tagName === 'h1');
+    const header = domTree
+      .children[0]
+        .children
+        .find((child) => child.name === 'body')
+          .children
+          .find((child) => child.name === 'header');
+    const h1 = header.children.find((child) => child.name === 'h1');
 
     expect(h1).to.exist;
-    expect(h1.children[0].value).to.include('Welcome to My Dummy Website');
+    expect(h1.children[0].name).to.include('Welcome to My Dummy Website');
+  });
+
+  it('shoudl handle selectors correctly', function () {
+    const parser = new HTMLParser(dummyHTML);
+    const domTree = parser.parse();
+
+    const result = domTree.querySelector('root > html > body > header > h1');
+    expect(result).to.be.an('array').that.is.not.empty;
+    expect(result[0].children[0].name).to.include('Welcome to My Dummy Website');
   });
 });
