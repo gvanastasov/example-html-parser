@@ -155,3 +155,4 @@ Serialized HTML
 - Tokenization of HTML Tags: The tokenizer can process standard HTML tags, both opening and closing.
 - AST Generation: Builds an abstract syntax tree from tokens, representing the HTML document structure.
 - Serialization: Converts the AST back into HTML format, preserving the document structure.
+- Simple dom traversal query selector.
