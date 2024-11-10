@@ -9,7 +9,7 @@ const TOKEN_TYPES = {
 
 class HTMLTokenizer {
   constructor(html) {
-    this.html = html;
+    this.html = html.trim();
     this.position = 0;
     this.tokens = [];
   }
