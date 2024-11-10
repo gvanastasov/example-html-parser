@@ -150,6 +150,12 @@ Serialized HTML
 </html>
 ```
 
+Queries support node tree search:
+
+```js
+const result = domTree.querySelector('root > html > head > title');
+```
+
 ## Features
 
 - Tokenization of HTML Tags: The tokenizer can process standard HTML tags, both opening and closing.
